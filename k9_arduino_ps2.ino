@@ -12,12 +12,14 @@ int error = 0;
 byte type = 0;
 byte vibrate = 0;
 
+// == Vars for PS2X Setup ==
 static const boolean PRESSURE                = false;
 static const boolean VIBE                    = false;
 static const byte PIN_INPUT_CLOCK            = 13;
 static const byte PIN_INPUT_COMMAND          = 10;
 static const byte PIN_INPUT_ATTENTION        = 11;
 static const byte PIN_INPUT_PRESSURE         = 12;
+// == Motor Vars ==
 static const byte PIN_DRIVE1                 = 10;
 static const byte PIN_DRIVE2                 = 09;
 static const byte PIN_DRIVE2                 = 07;
@@ -35,6 +37,7 @@ void setup(void) {
   pinMode(PIN_DRIVE2,OUTPUT);
   pinMode(PIN_DRIVE3,OUTPUT);
   pinMode(PIN_DRIVE4,OUTPUT);
+  // == Init PS2 IO, var:error is more for TODO:Debug ==
   error = ps2wl.config_gamepad(PIN_INPUT_CLOCK,
                               PIN_INPUT_COMMAND,
                               PIN_INPUT_ATTENTION,
@@ -42,9 +45,10 @@ void setup(void) {
                               PRESSURE, VIBE);
 }
 void loop(void) {
-//  long timeNow = millis();
+//  long timeNow = millis(); // mabe used l8r...
 
   ps2wl.read_gamepad();
+  // Feeds a digital "tank-controls" setup. Checks for 1 of 4 2-button combos; stops otherwise.
   if(ps2wl.ButtonPressed(PSB_PAD_UP) && ps2wl.ButtonPressed(PSB_PAD_TRIANGLE){
     forward();
   }
@@ -61,6 +65,7 @@ void loop(void) {
     hault();
   }
 }
+// == Direction functions ==
 void forward(void){
   digitalWrite(PIN_DRIVE1,HIGH);
   digitalWrite(PIN_DRIVE2,LOW);
