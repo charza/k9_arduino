@@ -66,6 +66,9 @@ void loop(void) {
   }
 }
 // == Direction functions ==
+// Motor setup requires
+// "L293D Motor Driver Chip"
+// NOTE: Needs Field-Test
 void forward(void){
   digitalWrite(PIN_DRIVE1,HIGH);
   digitalWrite(PIN_DRIVE2,LOW);
